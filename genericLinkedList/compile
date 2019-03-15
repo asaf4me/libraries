@@ -1,0 +1,4 @@
+g++ -c genericLinkedList.cpp
+g++ -c main.cpp
+g++ -o run genericLinkedList.o main.o
+rm genericLinkedList.o main.o
