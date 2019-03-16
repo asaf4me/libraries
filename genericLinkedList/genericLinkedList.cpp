@@ -29,6 +29,27 @@ namespace gll
                 return newNode;
             }
 
+            /* Return the data of element by required index */
+            node<T>* get(int index)
+            {
+                if(index > this->length - 1)
+                    return NULL;
+                node<T>* curr = head;
+                for(int i = 0; i < index ; i++)
+                    curr = curr->next;
+                return curr;
+            }
+
+            /* Remove node */
+            void remove(node<T>* pNode)
+            {
+                node<T> **curr = &head;
+                while((*curr) != pNode)
+                    curr = &(*curr)->next;
+                *curr = pNode->next;
+                delete pNode;
+            }
+
         public:
             genericLinkedList<T>()
             {
@@ -91,55 +112,54 @@ namespace gll
                     tail = newNode;
                 return 1;
             }
-            
-            /* Return the data of element by required index */
-            T get(int index)
-            {
-                if(index > this->length - 1)
-                    return -1;
-                node<T>* curr = head;
-                for(int i = 0; i < index ; i++)
-                    curr = curr->next;
-                return curr->data;
-            }
 
-            int remove_node(node<T>* node)
-            {
 
-            }
-
+            /* Remove all the element with the required data - return the Count of the deleted elements: returns 0 for failure and count for success */
             int remove_by_data(T data)
             {
-
+                node<T>* curr = search(data);
+                int counter = 0;
+                while(curr){
+                    remove(curr);
+                    curr = search(data);
+                    this->length--;
+                    counter++;
+                }
+                return counter;
             }
 
+            /* Remove the element int the required index: returns -1 for failure and 1 for success */
             int remove_by_index(int index)
             {
-
+                node<T> *temp = get(index);
+                if(!temp)
+                    return -1;
+                remove(temp);
+                this->length--;
+                return 1;
             }
 
             /* Search node by data of element */
-            bool search(T data)
+            node<T>* search(T data)
             {
                 node<T>* curr = head;
                 while(curr)
                 {
                     if(curr->data == data)
-                        return true;
+                        return curr;
+                    curr = curr->next;
                 }
-                return false; 
+                return NULL; 
             }
 
-            /* Search node by data, and replace it with a new element */
-            int search_and_replace(T data)
+            /* Search node by data, and replace it with a new element - it will replace the first node that found */
+            int search_and_replace(T newData,T oldData)
             {
-
-            }
-
-            /* Remove existing element from required index and replace it with a new element */
-            int remove_and_replace(int index)
-            {
-
+                node<T>* curr = get(oldData);
+                /* Check for node existence */
+                if(curr == NULL)
+                    return -1;
+                curr->data = newData;
             }
 
             genericLinkedList concat(genericLinkedList list_1, genericLinkedList list_2)
@@ -154,7 +174,7 @@ namespace gll
 
             T operator[](int index)
             {
-                return get(index);
+                return get(index)->data;
             }
 
             void reverse()
