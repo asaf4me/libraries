@@ -1,6 +1,4 @@
 #include <iostream>
-#define SUCCESS 1
-#define FAILURE -1
 using namespace std;
 
 /* Define the generic node */
@@ -38,30 +36,31 @@ namespace gll
             }
 
             /* Insert Node to the end of the list */
-            int insert(T data) 
+            int push_tail(T data) 
             {
                 if(!head){
                     head = create_node(data);
                     tail = head;
-                    length++;
+                    this->length++;
                 }
                 else{
                     node<T>* ptr = create_node(data);
                     tail->next = ptr;
                     tail = ptr;
-                    length++;
+                    this->length++;
                 }
             }
 
             /* Push Node to the head of the list */
             int push_head(T data){
                 if(!head){
-                    insert(data);
+                    push_tail(data);
                     return 1;
                 }
                 node<T>* newNode = create_node(data);
                 newNode->next = head;
                 head = newNode;
+                this->length++;
                 return 1;
             }
 
@@ -72,28 +71,39 @@ namespace gll
 
             /* Insert Node to the the required place by index */
             int set_by_index(T data, int index)
-            {
-                if(index > length - 1){
-                    cout << "List length: " << length <<  " is less then required index [0-N]: " << index << endl;
-                    return -1;
-                }
-                
+            {   
                 if(index == 0 || !head){
                     push_head(data);
                     return 1;
                 }
-
+                
                 node<T>* curr = head;
-                for(int i = 0 ; i < index ; i++){
+                for(int i = 0 ; i < index - 1 ; i++){
                     curr = curr->next;
                 }
+
                 node<T>* newNode = create_node(data);
                 newNode->next = curr->next;
                 curr->next = newNode;
+                this->length++;
+
+                if( index == this->length - 1)
+                    tail = newNode;
                 return 1;
             }
             
+            /* Return the data of element by required index */
             T get(int index)
+            {
+                if(index > this->length - 1)
+                    return -1;
+                node<T>* curr = head;
+                for(int i = 0; i < index ; i++)
+                    curr = curr->next;
+                return curr->data;
+            }
+
+            int remove_node(node<T>* node)
             {
 
             }
@@ -108,24 +118,59 @@ namespace gll
 
             }
 
+            /* Search node by data of element */
             bool search(T data)
             {
-
+                node<T>* curr = head;
+                while(curr)
+                {
+                    if(curr->data == data)
+                        return true;
+                }
+                return false; 
             }
 
+            /* Search node by data, and replace it with a new element */
             int search_and_replace(T data)
             {
 
             }
 
-            T operator[](int index)
+            /* Remove existing element from required index and replace it with a new element */
+            int remove_and_replace(int index)
             {
 
             }
 
-            void reverse()
+            genericLinkedList concat(genericLinkedList list_1, genericLinkedList list_2)
             {
 
+            }
+
+            // genericLinkedList operator+(genericLinkedList list_1, genericLinkedList list_2)
+            // {
+            //     return concat(list_1, list_2);
+            // }
+
+            T operator[](int index)
+            {
+                return get(index);
+            }
+
+            void reverse()
+            {
+                if(!head)
+                    return;
+                node<T>* curr = head;
+                node<T>* prev = NULL;
+                node<T>* next = NULL;
+                while(curr){
+                    next = curr->next;
+                    curr->next = prev;
+                    prev = curr;
+                    curr = next;
+                }
+                head = prev;
             }
 
             void print_list()
