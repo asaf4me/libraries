@@ -50,6 +50,21 @@ namespace gll
                 delete pNode;
             }
 
+            void concat(genericLinkedList<T> *other)
+            {
+                if (!other->head)
+                    return;
+                node<T> *curr = other->head;
+                while (curr)
+                {
+                    node<T> *tmp = create_node(curr->data);
+                    this->tail->next = tmp;
+                    this->tail = this->tail->next;
+                    curr = curr->next;
+                }
+                this->length+=other->length;
+            }
+
         public:
             genericLinkedList<T>()
             {
@@ -60,17 +75,17 @@ namespace gll
             /* Insert Node to the end of the list */
             int push_tail(T data) 
             {
+                node<T> *ptr = create_node(data);
                 if(!head){
-                    head = create_node(data);
-                    tail = head;
-                    this->length++;
+                    head = ptr;
+                    tail = head;   
                 }
                 else{
-                    node<T>* ptr = create_node(data);
                     tail->next = ptr;
                     tail = ptr;
-                    this->length++;
                 }
+                this->length++;
+                return 1;
             }
 
             /* Push Node to the head of the list */
@@ -174,20 +189,16 @@ namespace gll
                 curr->data = newData;
             }
 
-            void concat(node<T> *head_of_list_1, node<T> *head_of_list_2)
+            void operator+=(genericLinkedList<T>* list)
             {
-                if (!head_of_list_1)
-                    return;
-                if (head_of_list_1->next)
-                    concat(head_of_list_1->next, head_of_list_2);
-                else
-                    head_of_list_1->next = head_of_list_2;
+                concat(list);
             }
 
-            // genericLinkedList<T> operator+(genericLinkedList<T> list)
-            // {
-            //     return concat(this->head, (&list->head));
-            // }
+            genericLinkedList<T> operator+(genericLinkedList<T>* list)
+            {
+                genericLinkedList<T> *newList = new genericLinkedList<T>();
+                return concat(this->head, (&list->head));
+            }
 
             /* Implement the [] operator */
             T operator[](int index)
@@ -199,6 +210,7 @@ namespace gll
             {
                 if(!head)
                     return;
+                this->tail = head;
                 node<T>* curr = head;
                 node<T>* prev = NULL;
                 node<T>* next = NULL;
@@ -223,13 +235,15 @@ namespace gll
 
             ~genericLinkedList()
             {
-                node<T>* p = head;
-                node<T>* temp;
-                while(p){
-                    temp = p;
-                    p = p->next;
-                    delete temp;
+                node<T>* curr = head;
+                node<T>* next;
+                while (curr)
+                {
+                    next = curr->next;
+                    delete curr;
+                    curr = next;
                 }
+                this->head = NULL;
             }
     };
 } // namespace gll

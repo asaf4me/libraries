@@ -13,7 +13,9 @@ int main(int argc, const char* argv[])
     genericLinkedList<int> list;
     genericLinkedList<int> list_2;
     list.push_tail(1);
+    list_2.push_tail(55);
     list.push_tail(4);
+    list_2.push_tail(44);
     list.push_tail(3);
     list.push_tail(2);
     list.push_tail(6);
@@ -22,7 +24,7 @@ int main(int argc, const char* argv[])
     list.push_tail(5);
     list.push_tail(5);
     list.push_tail(5);
-    list.set_by_index(9,7);
+    list.set_by_index(9,2);
     list.set_by_index(10,1);
     list.set_by_index(11,0);
     cout << "Testing the seters functions: " << endl;
@@ -48,9 +50,11 @@ int main(int argc, const char* argv[])
     list_2.push_tail(77);
     list_2.push_tail(88);
     list_2.push_tail(505);
-    cout << "Testing the + operator: " << endl;
-    list.concat(list.get_head(),list_2.get_head());
+    cout << "Testing the += operator: " << endl;
+    list += &list_2;
     list.print_list();
+    cout << "List new length is: " << list.get_list_length() << endl;
+
     cout << "Tester finished successfuly, bye bye :-)" << endl;
     return 1;
 }
