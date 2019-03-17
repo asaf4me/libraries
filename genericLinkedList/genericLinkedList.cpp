@@ -180,8 +180,23 @@ namespace gll
                 return NULL; 
             }
 
+            /* Copy list */
+            genericLinkedList<T> *copy_me(genericLinkedList<T> *list)
+            {
+                genericLinkedList<T> *newList = new genericLinkedList<T>();
+                newList->push_head(this->head->data);
+                node<T> *curr = this->head;
+                while (curr)
+                {
+                    newList->push_tail(curr->data);
+                    curr = curr->next;
+                    newList->length++;
+                }
+                return newList;
+            }
+
             /* Search node by data, and replace it with a new element - it will replace the first node that found */
-            int search_and_replace(T newData,T oldData)
+            int search_and_replace(T newData, T oldData)
             {
                 node<T>* curr = get(oldData);
                 /* Check for node existence */
@@ -199,15 +214,7 @@ namespace gll
             /* Implement the + operator */
             genericLinkedList<T>* operator+(genericLinkedList<T>* list)
             {
-                genericLinkedList<T> *newList = new genericLinkedList<T>();
-                newList->push_head(this->head->data);
-                node<T> *curr = this->head;
-                while (curr)
-                {
-                    newList->push_tail(curr->data);
-                    curr = curr->next;
-                    newList->length++;
-                }
+                genericLinkedList<T> *newList = copy_me(list);
                 *newList += list;
                 return newList;
             }
