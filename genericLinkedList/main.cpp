@@ -11,7 +11,8 @@ using namespace std;
 int main(int argc, const char* argv[])
 {
     genericLinkedList<int> list;
-    list.push_tail(5);
+    genericLinkedList<int> list_2;
+    list.push_tail(1);
     list.push_tail(4);
     list.push_tail(3);
     list.push_tail(2);
@@ -37,6 +38,18 @@ int main(int argc, const char* argv[])
     list.search_and_replace(100,5);
     list.print_list();
     cout << "Testin the remove by data function, Deleted elements num: "<< list.remove_by_data(5) << endl;
+    list.print_list();
+    cout << "Testing the concat function: " << endl;
+    list_2.push_tail(55);
+    list_2.push_tail(44);
+    list_2.push_tail(33);
+    list_2.push_tail(22);
+    list_2.push_tail(66);
+    list_2.push_tail(77);
+    list_2.push_tail(88);
+    list_2.push_tail(505);
+    cout << "Testing the + operator: " << endl;
+    list.concat(list.get_head(),list_2.get_head());
     list.print_list();
     cout << "Tester finished successfuly, bye bye :-)" << endl;
     return 1;

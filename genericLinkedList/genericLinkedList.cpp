@@ -91,6 +91,17 @@ namespace gll
                 return this->length;
             }
 
+            /* Return the list head */
+            node<T> * get_head(){
+                return this->head;
+            }
+
+            /* Return the list tail */
+            node<T> *get_tail()
+            {
+                return this->tail;
+            }
+
             /* Insert Node to the the required place by index */
             int set_by_index(T data, int index)
             {   
@@ -158,21 +169,27 @@ namespace gll
             {
                 node<T>* curr = get(oldData);
                 /* Check for node existence */
-                if(curr == NULL)
+                if(!curr)
                     return -1;
                 curr->data = newData;
             }
 
-            genericLinkedList concat(genericLinkedList list_1, genericLinkedList list_2)
+            void concat(node<T> *head_of_list_1, node<T> *head_of_list_2)
             {
-
+                if (!head_of_list_1)
+                    return;
+                if (head_of_list_1->next)
+                    concat(head_of_list_1->next, head_of_list_2);
+                else
+                    head_of_list_1->next = head_of_list_2;
             }
 
-            // genericLinkedList operator+(genericLinkedList list_1, genericLinkedList list_2)
+            // genericLinkedList<T> operator+(genericLinkedList<T> list)
             // {
-            //     return concat(list_1, list_2);
+            //     return concat(this->head, (&list->head));
             // }
 
+            /* Implement the [] operator */
             T operator[](int index)
             {
                 return get(index)->data;
