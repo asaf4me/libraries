@@ -5,4 +5,4 @@ Current status: <b><br/>
 Generic linked list (C++) <b><br/>
 Generic Hash table (C)  <b><br/>
 ThredPoll (C) <b><br/>
-Binary Tree (C++) (dev) <b><br/>
+Generic binary Tree (C++) (dev) <b><br/>
