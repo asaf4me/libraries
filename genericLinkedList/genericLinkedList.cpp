@@ -211,6 +211,30 @@ namespace gll
                 concat(list);
             }
 
+            /* Implement the -= operator */
+            void operator-=(genericLinkedList<T> *other)
+            {
+                if (!other->head)
+                    return;
+                int counter = 0;
+                node<T> *curr = other->head;
+                while (curr)
+                {
+                    remove_by_data(curr->data);
+                    counter++;
+                    curr = curr->next;
+                }
+                this->length -= counter;
+            }
+
+            /* Implement the - operator */
+            genericLinkedList<T> *operator-(genericLinkedList<T> *list)
+            {
+                genericLinkedList<T> *newList = copy_me(list);
+                *newList -= list;
+                return newList;
+            }
+
             /* Implement the + operator */
             genericLinkedList<T>* operator+(genericLinkedList<T>* list)
             {

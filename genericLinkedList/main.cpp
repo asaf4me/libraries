@@ -28,6 +28,7 @@ int main(int argc, const char* argv[])
     list.set_by_index(9,2);
     list.set_by_index(10,1);
     list.set_by_index(11,0);
+
     cout << "Testing the seters functions: " << endl;
     list.print_list();
     list.reverse();
@@ -43,14 +44,16 @@ int main(int argc, const char* argv[])
     cout << "Testin the remove by data function, Deleted elements num: "<< list.remove_by_data(5) << endl;
     list.print_list();
     cout << "Testing the concat function: " << endl;
+
     list_2.push_tail(55);
     list_2.push_tail(44);
     list_2.push_tail(33);
     list_2.push_tail(22);
-    list_2.push_tail(66);
+    list_2.push_tail(8);
     list_2.push_tail(77);
-    list_2.push_tail(88);
-    list_2.push_tail(505);
+    list_2.push_tail(6);
+    list_2.push_tail(11);
+
     cout << "Testing the += operator: " << endl;
     list += &list_2;
     list.print_list();
@@ -58,8 +61,17 @@ int main(int argc, const char* argv[])
     cout << "Testing the + operator: list_3 is:" << endl;
     list_3 = list + &list_2;
     list.print_list();
+
+    cout << "Testing the -= operator: " << endl;
+    list -= &list_2;
+    list.print_list();
+
+    cout << "Testing the - operator: " << endl;
+    list_3 = list - &list_2;
+    list.print_list();
+
     if (list_3)
-        delete list_3;    
+        delete list_3;
     cout << "Tester finished successfuly, bye bye :-)" << endl;
     return 1;
 }
