@@ -78,6 +78,21 @@ namespace bt
                 return this->root;
             }
 
+            /* Searching for required data */
+            node<T> *search(T data, node<T> *root)
+            {
+                if (root)
+                {
+                    if (root->data > data)
+                        search(data, root->left);
+                    else if (root->data < data)
+                        search(data, root->right);
+                    else
+                        return root;
+                }
+                return NULL;
+            }
+
             /* Inorder printing */
             void inorderPrint(node<T> *root)
             {

@@ -28,5 +28,13 @@ int main(int argc, const char *argv[])
     cout << "Post Order:" << endl;
     root.postorderPrint(root.get_root());
     cout << endl;
+
+    node<int> *temp = root.search(6, root.get_root());
+    cout << "Search function: "  << endl;
+    if(temp)
+        cout << temp->data;
+    else
+        cout << "Not found";
+    cout << endl;
     return 1;
 }
