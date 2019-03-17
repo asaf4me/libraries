@@ -84,7 +84,7 @@ namespace bt
                 if (root != NULL)
                 {
                     inorderPrint(root->left);
-                    cout << root->data << "  ";
+                    cout << root->data << " ";
                     inorderPrint(root->right);
                 }
             }
