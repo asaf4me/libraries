@@ -12,6 +12,7 @@ int main(int argc, const char* argv[])
 {
     genericLinkedList<int> list;
     genericLinkedList<int> list_2;
+    genericLinkedList<int>* list_3;
     list.push_tail(1);
     list_2.push_tail(55);
     list.push_tail(4);
@@ -54,7 +55,11 @@ int main(int argc, const char* argv[])
     list += &list_2;
     list.print_list();
     cout << "List new length is: " << list.get_list_length() << endl;
-
+    cout << "Testing the + operator: list_3 is:" << endl;
+    list_3 = list + &list_2;
+    list.print_list();
+    if (list_3)
+        delete list_3;    
     cout << "Tester finished successfuly, bye bye :-)" << endl;
     return 1;
 }

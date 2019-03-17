@@ -50,6 +50,7 @@ namespace gll
                 delete pNode;
             }
 
+            /* Concating two lists */
             void concat(genericLinkedList<T> *other)
             {
                 if (!other->head)
@@ -189,15 +190,26 @@ namespace gll
                 curr->data = newData;
             }
 
+            /* Implement the += operator */
             void operator+=(genericLinkedList<T>* list)
             {
                 concat(list);
             }
 
-            genericLinkedList<T> operator+(genericLinkedList<T>* list)
+            /* Implement the + operator */
+            genericLinkedList<T>* operator+(genericLinkedList<T>* list)
             {
                 genericLinkedList<T> *newList = new genericLinkedList<T>();
-                return concat(this->head, (&list->head));
+                newList->push_head(this->head->data);
+                node<T> *curr = this->head;
+                while (curr)
+                {
+                    newList->push_tail(curr->data);
+                    curr = curr->next;
+                    newList->length++;
+                }
+                *newList += list;
+                return newList;
             }
 
             /* Implement the [] operator */
@@ -206,6 +218,7 @@ namespace gll
                 return get(index)->data;
             }
 
+            /* Reversing the list */
             void reverse()
             {
                 if(!head)
@@ -223,6 +236,7 @@ namespace gll
                 head = prev;
             }
 
+            /* Printing the list */
             void print_list()
             {
                 node<T>* temp = head;
