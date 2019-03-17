@@ -29,7 +29,7 @@ namespace gll
                 return newNode;
             }
 
-            /* Return the data of element by required index */
+            /* Return the Node of element by required index */
             node<T>* get(int index)
             {
                 if(index > this->length - 1)
@@ -40,7 +40,7 @@ namespace gll
                 return curr;
             }
 
-            /* Remove node */
+            /* Remove Node */
             void remove(node<T>* pNode)
             {
                 node<T> **curr = &head;
@@ -167,7 +167,7 @@ namespace gll
                 return 1;
             }
 
-            /* Search node by data of element */
+            /* Search Node by data of element */
             node<T>* search(T data)
             {
                 node<T>* curr = head;
@@ -195,11 +195,11 @@ namespace gll
                 return newList;
             }
 
-            /* Search node by data, and replace it with a new element - it will replace the first node that found */
+            /* Search Node by data, and replace it with a new element - it will replace the first Node that found */
             int search_and_replace(T newData, T oldData)
             {
                 node<T>* curr = get(oldData);
-                /* Check for node existence */
+                /* Check for Node existence */
                 if(!curr)
                     return -1;
                 curr->data = newData;
