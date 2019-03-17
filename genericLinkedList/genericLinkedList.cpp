@@ -18,7 +18,7 @@ namespace gll
 
             node<T> *head;
             node<T> *tail;
-            int length = 0;
+            int length;
 
             /* Single Node Constructor */
             node<T>* create_node(T data)
@@ -54,6 +54,7 @@ namespace gll
             genericLinkedList<T>()
             {
                 head = tail = NULL;
+                this->length = 0;
             }
 
             /* Insert Node to the end of the list */

@@ -39,5 +39,5 @@ int main(int argc, const char* argv[])
     cout << "Testin the remove by data function, Deleted elements num: "<< list.remove_by_data(5) << endl;
     list.print_list();
     cout << "Tester finished successfuly, bye bye :-)" << endl;
-    return EXIT_SUCCESS;
+    return 1;
 }
