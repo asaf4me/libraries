@@ -72,6 +72,25 @@ namespace bt
                 return 1;
             }
 
+            int remove(T data, node<T> *root)
+            {
+                node<T> *iterate = root;
+                if (!iterate)
+                    return -1;
+                if (iterate->data == data)
+                {
+                    if (!iterate->left || !iterate->right)
+                        delete iterate;
+                    else
+                    {
+
+                    }
+                    this->depth--;
+                    return 1;
+                }
+                data > iterate->data ? remove(data, root->right) : remove(data, root->left);
+            }
+
             /* Return the root pointer */
             node<T> *get_root()
             {
