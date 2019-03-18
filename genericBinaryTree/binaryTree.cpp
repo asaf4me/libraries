@@ -81,16 +81,15 @@ namespace bt
             /* Searching for required data */
             node<T> *search(T data, node<T> *root)
             {
-                if (root)
+                node<T> *iterate = root;
+                if (iterate)
                 {
-                    if (root->data > data)
-                        search(data, root->left);
-                    else if (root->data < data)
-                        search(data, root->right);
-                    else
-                        return root;
+                    if (data == iterate->data)
+                        return iterate;
+                    data > iterate->data ? search(data, iterate->right) : search(data, iterate->left);
                 }
-                return NULL;
+                else
+                    return NULL;
             }
 
             /* Inorder printing */
