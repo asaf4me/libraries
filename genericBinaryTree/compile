@@ -1,4 +1,0 @@
-g++ -c binaryTree.cpp
-g++ -c main.cpp
-g++ -o run binaryTree.o main.o
-rm binaryTree.o main.o
