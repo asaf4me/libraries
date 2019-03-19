@@ -23,7 +23,7 @@ namespace gll
             /* Single Node Constructor */
             node<T>* create_node(T data)
             {
-                node<T>* newNode = new node<T>;
+                node<T>* newNode = new node<T>();
                 newNode->data = data;
                 newNode->next = NULL;
                 return newNode;

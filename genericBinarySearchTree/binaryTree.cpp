@@ -25,7 +25,7 @@ namespace bt
             /* Create a single Node */
             node<T> *create_node(T data)
             {
-                node<T> *newNode = new node<T>;
+                node<T> *newNode = new node<T>();
                 newNode->data = data;
                 newNode->left = NULL;
                 newNode->right = NULL;
