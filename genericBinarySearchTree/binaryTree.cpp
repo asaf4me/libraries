@@ -43,6 +43,14 @@ namespace bt
                 }
             }
 
+            /* Return the node with the min value */
+            node<T>* getMin(node<T>* pointer)
+            {
+                while(pointer->left)
+                    pointer = pointer->left;
+                return pointer;
+            }
+
         public:
             binaryTree<T>()
             {
@@ -72,11 +80,19 @@ namespace bt
                 return 1;
             }
 
+            /* Beauty version for Tree printing */
+            void printBeauty(node<T>* root)
+            {
+
+            }
+
+            /* Delete Node from the tree */
             int remove(T data, node<T> *root)
             {
                 node<T> *iterate = root;
                 if (!iterate)
                     return -1;
+                node<T>* tmp = getMin(this->root);
                 if (iterate->data == data)
                 {
                     if (!iterate->left || !iterate->right)

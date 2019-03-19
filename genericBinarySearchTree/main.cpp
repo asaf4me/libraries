@@ -36,5 +36,7 @@ int main(int argc, const char *argv[])
     else
         cout << "Not found";
     cout << endl;
+
+    root.remove(5,root.get_root());
     return 1;
 }
