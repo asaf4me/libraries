@@ -67,11 +67,14 @@ int main(int argc, const char* argv[])
     list.print_list();
 
     cout << "Testing the - operator: " << endl;
-    list_3 = list - &list_2;
+    genericLinkedList<int> * list_4 = list - &list_2;
     list.print_list();
 
     if (list_3)
         delete list_3;
-    cout << "Tester finished successfuly, bye bye :-)" << endl;
+
+    if (list_4)
+        delete list_4;
+    // cout << "Tester finished successfuly, bye bye :-)" << endl;
     return 1;
 }
