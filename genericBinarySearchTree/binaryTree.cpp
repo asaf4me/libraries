@@ -125,28 +125,23 @@ namespace bt
             {
                 if (!root)
                     return root;
-                else if (data < root->data)
+                if (data < root->data)
                     root->left = remove(data , root->left);
                 else if (data > root->data)
                     root->right = remove(data, root->right);
                 else
                 {
-                    if (!root->left  && !root->right)
+                    if (!root->left)
                     {
+                        node<T> *temp = root->right;
                         delete root;
-                        root = NULL;
+                        return temp;
                     }
-                    else if (!root->left)
+                    else if (!root->right)
                     {
-                        node<T> *temp = root;
-                        root = root->right;
-                        delete temp;
-                    }
-                    else if (root->right == NULL)
-                    {
-                        node<T> *temp = root;
-                        root = root->left;
-                        delete temp;
+                        node<T> *temp = root->left;
+                        delete root;
+                        return temp;
                     }
                     else
                     {
@@ -162,6 +157,12 @@ namespace bt
             node<T> *get_root()
             {
                 return this->root;
+            }
+
+            /* Root setter */
+            node<T> *set_root(node<T>* root)
+            {
+                this->root = root;
             }
 
             /* Searching for required data */

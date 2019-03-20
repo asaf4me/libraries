@@ -38,7 +38,7 @@ int main(int argc, const char *argv[])
     cout << endl;
     cout << "Print pre removal tree:";
     root.printBeauty(root.get_root());
-    root.remove(5,root.get_root());
+    root.set_root(root.remove(1, root.get_root()));
     cout << "Print post removal tree:";
     root.printBeauty(root.get_root());
     return 1;
