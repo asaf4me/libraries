@@ -1,5 +1,6 @@
 #include <iostream>
 #include <bits/stdc++.h>
+#define WHITESPACE 2
 
 using namespace std;
 
@@ -51,6 +52,22 @@ namespace bt
                 return pointer;
             }
 
+            /* Print the node by level */
+            void printByLevel(node<T> *root, int space)
+            {
+                if (root)
+                {
+                    space += WHITESPACE;
+                    printByLevel(root->left, space);
+                    cout << endl;
+                    for (int i = WHITESPACE; i < space; i++)
+                        cout << " ";
+                    cout << root->data << endl;
+                    
+                    printByLevel(root->right, space);
+                }
+            }
+
         public:
             binaryTree<T>()
             {
@@ -76,35 +93,69 @@ namespace bt
                     }
                     data < parent->data ? parent->left = create_node(data) : parent->right = create_node(data);
                 }
-                this->depth++;
                 return 1;
             }
 
-            /* Beauty version for Tree printing */
-            void printBeauty(node<T>* root)
+            /* Return the depth of the tree */
+            int getDepth(node<T> *root)
             {
+                if (!root)
+                    return 0;
+                else
+                {
+                    int left = getDepth(root->left);
+                    int right = getDepth(root->right);
+                    if (left > right)
+                        return left + 1;
+                    return right + 1;
+                }
+            }
 
+            /* Beauty version for Tree printing */
+            void printBeauty(node<T> *root)
+            {
+                if(root)
+                {
+                    printByLevel(root, 10);
+                }
             }
 
             /* Delete Node from the tree */
-            int remove(T data, node<T> *root)
+            node<T> *remove(T data, node<T> *root)
             {
-                node<T> *iterate = root;
-                if (!iterate)
-                    return -1;
-                node<T>* tmp = getMin(this->root);
-                if (iterate->data == data)
+                if (!root)
+                    return root;
+                else if (data < root->data)
+                    root->left = remove(data , root->left);
+                else if (data > root->data)
+                    root->right = remove(data, root->right);
+                else
                 {
-                    if (!iterate->left || !iterate->right)
-                        delete iterate;
+                    if (!root->left  && !root->right)
+                    {
+                        delete root;
+                        root = NULL;
+                    }
+                    else if (!root->left)
+                    {
+                        node<T> *temp = root;
+                        root = root->right;
+                        delete temp;
+                    }
+                    else if (root->right == NULL)
+                    {
+                        node<T> *temp = root;
+                        root = root->left;
+                        delete temp;
+                    }
                     else
                     {
-
+                        node<T> *temp = getMin(root->right);
+                        root->data = temp->data;
+                        root->right = remove(temp->data, root->right);
                     }
-                    this->depth--;
-                    return 1;
                 }
-                data > iterate->data ? remove(data, root->right) : remove(data, root->left);
+                return root;
             }
 
             /* Return the root pointer */
