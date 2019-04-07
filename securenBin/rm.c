@@ -5,13 +5,9 @@
 #include <linux/limits.h>
 #include <stdlib.h>
 
-#define LENGTH 39
+#define LENGTH 0
 
-const char* const blackList[] = {"/", "/aquota.group", "/aquota.user", "/backup", "/backups-test", "/bash", "/boot", "/daniel", "/dev",
-										"/dumps", "/eli_install", "/error_log", "/etc", "/home", "/home2", "/idan", "/iscsi", "/logs", "/media",
-										"/mnt", "/ofir", "/opt", "/proc", "/quota.group", "/quota.user", "/razor-agent.log", "/root", "/run", "/srv",
-										"/svvedice.tar.gz", "/sys", "/tmp", "/usr", "/usr/bin", "/usr/lib", "/usr/lib64", "/usr/local/cpanel/scripts",
-										"/usr/sbin", "/var"};
+const char* const blackList[] = {};
 
 int StartsWith(char *a, const char *b){
 	if(strncmp(a, b, strlen(b)) == 0) return 1;
@@ -39,7 +35,7 @@ int recursivePermission(char *param){
 	{
 		ptr = strchr(++ptr,'/');
 		if(ptr == NULL)
-				return -1;
+			return -1;
 	}
 	return 1;
 }
