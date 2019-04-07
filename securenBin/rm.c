@@ -61,13 +61,17 @@ int validatePath(int argc, char* argv[]){
 			return -1;
 		}
 		// Searching for blacklist folders in depth 1
-		if(StartsWith(argv[i], "/boot") == 1 || StartsWith(argv[i], "/home2") == 1 || StartsWith(argv[i], "/home") == 1 || StartsWith(argv[i], "/etc") == 1 || StartsWith(argv[i], "/usr") == 1 || StartsWith(argv[i], "/root") == 1 || StartsWith(argv[i], "/run") == 1)
+		for(int j = 0 ; j < LENGTH ; j++)
 		{
-			if(recursivePermission(++argv[i]) == -1){
-				printf("%s %s Permission denied\n", argv[0], --argv[i]);
-				return -1;
+			if(StartsWith(argv[i], blackList[j]) == 1)
+			{
+				if(recursivePermission(++argv[i]) == -1)
+				{
+					printf("%s %s Permission denied\n", argv[0], --argv[i]);
+					return -1;
+				}
+				--argv[i];
 			}
-			--argv[i];
 		}
 		printf("%s\n", argv[i]);
 	}
