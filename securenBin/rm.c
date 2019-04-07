@@ -5,9 +5,13 @@
 #include <linux/limits.h>
 #include <stdlib.h>
 
-#define LENGTH 0
+#define LENGTH 39
 
-const char* const blackList[] = {};
+const char* const blackList[] = {"/", "/aquota.group", "/aquota.user", "/backup", "/backups-test", "/bash", "/boot", "/daniel", "/dev",
+										"/dumps", "/eli_install", "/error_log", "/etc", "/home", "/home2", "/idan", "/iscsi", "/logs", "/media",
+										"/mnt", "/ofir", "/opt", "/proc", "/quota.group", "/quota.user", "/razor-agent.log", "/root", "/run", "/srv",
+										"/svvedice.tar.gz", "/sys", "/tmp", "/usr", "/usr/bin", "/usr/lib", "/usr/lib64", "/usr/local/cpanel/scripts",
+										"/usr/sbin", "/var"};
 
 int StartsWith(char *a, const char *b){
 	if(strncmp(a, b, strlen(b)) == 0) return 1;
@@ -29,6 +33,7 @@ int binarySearch(char* param){
 	return -1;
 }
 
+// Check for depth 1 permission
 int recursivePermission(char *param){
 	char *ptr = strchr(param,'/');
 	if(ptr != NULL)
@@ -48,16 +53,14 @@ int validatePath(int argc, char* argv[]){
 		// Get the absolute path instead relative one
 		argv[i] = realpath(argv[i], absulote);
 		if (argv[i] == NULL)
-		{
-			perror("realpath() error");
-			return -1;
-		}
+			continue;
 		// Searching for argv[i] in the blacklist
 		if(binarySearch(argv[i]) == 1)
 		{
 			printf("%s %s Permission denied\n", argv[0], argv[i]);
 			return -1;
 		}
+		// Searching for blacklist folders in depth 1
 		if(StartsWith(argv[i], "/boot") == 1 || StartsWith(argv[i], "/home2") == 1 || StartsWith(argv[i], "/home") == 1 || StartsWith(argv[i], "/etc") == 1 || StartsWith(argv[i], "/usr") == 1 || StartsWith(argv[i], "/root") == 1 || StartsWith(argv[i], "/run") == 1)
 		{
 			if(recursivePermission(++argv[i]) == -1){
