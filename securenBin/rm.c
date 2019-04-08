@@ -50,7 +50,7 @@ int recursivePermission(char *param){
 	{
 		ptr = strchr(++ptr,'/');
 		if(ptr == NULL)
-				return -1;
+			return -1;
 	}
 	return 1;
 }
