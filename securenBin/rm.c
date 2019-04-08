@@ -13,9 +13,19 @@ const char* const blackList[] = {"/", "/aquota.group", "/aquota.user", "/backup"
 										"/svvedice.tar.gz", "/sys", "/tmp", "/usr", "/usr/bin", "/usr/lib", "/usr/lib64", "/usr/local/cpanel/scripts",
 										"/usr/sbin", "/var"};
 
-int StartsWith(char *a, const char *b){
+int startsWith(char *a, const char *b){
 	if(strncmp(a, b, strlen(b)) == 0) return 1;
 	return 0;
+}
+
+int forceFlagCheck(int argc, char *argv[])
+{
+	for(int i = 1 ; i < argc ; i++)
+	{
+		if(strcmp(argv[i], "-rf") == 0 || strcmp(argv[i], "-f") == 0)
+			return 1;
+	}
+	return -1;
 }
 
 // Return 1 if the param is found in blacklist
@@ -63,7 +73,7 @@ int validatePath(int argc, char* argv[]){
 		// Searching for blacklist folders in depth 1
 		for(int j = 0 ; j < LENGTH ; j++)
 		{
-			if(StartsWith(argv[i], blackList[j]) == 1)
+			if(startsWith(argv[i], blackList[j]) == 1)
 			{
 				if(recursivePermission(++argv[i]) == -1)
 				{
@@ -80,9 +90,12 @@ int validatePath(int argc, char* argv[]){
 
 int main(int argc, char* argv[])
 {
-	if(validatePath(argc, argv) == -1)
-		return -1;
+	if(forceFlagCheck(argc, argv) == 1)
+	{
+		if(validatePath(argc, argv) == -1)
+			return -1;
+	}
 	// Plug and play, just change the core command
-	// execvp("/usr/bin/rm", argv);
+	execvp("/usr/bin/jet/rm", argv);
 	return 1;
 }
